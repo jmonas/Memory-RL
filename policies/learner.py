@@ -201,6 +201,7 @@ class Learner:
 
         before_env_steps = self._n_env_steps_total
         for idx in range(num_rollouts):
+            print("Rollout number: ", idx)
             steps = 0
 
             obs = ptu.from_numpy(self.train_env.reset())  # reset

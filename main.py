@@ -61,6 +61,8 @@ flags.DEFINE_boolean("debug", False, "debug mode")
 flags.DEFINE_string("save_dir", "logs", "logging dir.")
 flags.DEFINE_string("submit_time", None, "used in sbatch")
 
+flags.DEFINE_string("run_name", None, "run name")
+
 
 def main(argv):
     if FLAGS.seed < 0:
