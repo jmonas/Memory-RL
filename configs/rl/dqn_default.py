@@ -21,7 +21,7 @@ def get_config():
     config = ConfigDict()
     config.name_fn = dqn_name_fn
 
-    config.algo = "dqn"
+    config.algo = "dqn_reimplemented"
 
     config.critic_lr = 3e-4
 

@@ -61,7 +61,7 @@ class Learner:
         if self.config_seq.is_markov:
             agent_class = AGENT_CLASSES["Policy_MLP"]
         else:
-            if self.config_rl.algo == "dqn":
+            if self.config_rl.algo == "dqn" or self.config_rl.algo == "dqn_reimplemented":
                 agent_class = AGENT_CLASSES["Policy_DQN_RNN"]
             elif self.FLAGS.shared_encoder:
                 agent_class = AGENT_CLASSES["Policy_Shared_RNN"]
@@ -200,6 +200,7 @@ class Learner:
         """
 
         before_env_steps = self._n_env_steps_total
+        print(num_rollouts)
         for idx in range(num_rollouts):
             print("Rollout number: ", idx)
             steps = 0
