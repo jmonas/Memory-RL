@@ -15,7 +15,7 @@
 module purge
 # module load cudatoolkit/11.1
 # module load cudnn/cuda-11.x/8.2.0
-module load anaconda3/2023.9
+module load anaconda3/2024.2
 conda activate /scratch/gpfs/jmonas/mambaforge/envs/tf2-gpu
 
 python main.py \
