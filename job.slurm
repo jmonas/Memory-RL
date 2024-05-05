@@ -24,8 +24,8 @@ python main.py \
     --train_episodes 40000 \
     --config_seq configs/seq_models/gpt_default.py \
     --config_seq.sampled_seq_len -1 \
-    --config_seq.model.seq_model_config.n_layer 2 \
-    --config_seq.model.seq_model_config.n_head 2 \
+    --config_seq.model.seq_model_config.n_layer 1 \
+    --config_seq.model.seq_model_config.n_head 1 \
 
 conda create --name trans_mem python=3.8
 conda activate trans_mem
