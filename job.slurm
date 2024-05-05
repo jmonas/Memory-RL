@@ -16,7 +16,7 @@ module purge
 module load anaconda3/2024.2
 module load cudatoolkit/11.7
 module load cudnn/cuda-11.x/8.2.0
-conda activate /scratch/gpfs/jmonas/mambaforge/envs/tf_mem_rl
+conda activate /scratch/gpfs/jmonas/mambaforge/envs/mem_rl_2
 
 python main.py \
     --config_env configs/envs/tmaze_passive.py \
