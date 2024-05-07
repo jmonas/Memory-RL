@@ -8,6 +8,21 @@ os.environ["XLA_PYTHON_CLIENT_PREALLOCATE"] = "false"
 import optax
 import torch.nn.functional as F
 import torchkit.pytorch_utils as ptu
+from torchkit.core import PyTorchModule
+
+class custom_mlp(nn.Module):
+    def __init__(self, hidden_sizes, input_size, action_dim):
+        super(custom_mlp, self).__init__()
+        layers = [nn.Linear(input_size, hidden_sizes[0]), nn.ReLU()]
+        for i in range(1, len(hidden_sizes)):
+            layers.append(nn.Linear(hidden_sizes[i-1], hidden_sizes[i]))
+            layers.append(nn.ReLU())
+        layers.append(nn.Linear(hidden_sizes[-1], action_dim))
+        self.model = nn.Sequential(*layers)
+
+    def forward(self, *inputs):
+        flat_inputs = torch.cat(inputs, dim=-1)
+        return self.model(flat_inputs)
 
 
 class DQN_Reimplemented(RLAlgorithmBase):
@@ -24,12 +39,10 @@ class DQN_Reimplemented(RLAlgorithmBase):
 
     @staticmethod
     def build_critic(hidden_sizes, input_size=None, obs_dim=None, action_dim=None):
-        layers = [nn.Linear(input_size, hidden_sizes[0]), nn.ReLU()]
-        for i in range(1, len(hidden_sizes)):
-            layers.append(nn.Linear(hidden_sizes[i-1], hidden_sizes[i]))
-            layers.append(nn.ReLU())
-        layers.append(nn.Linear(hidden_sizes[-1], action_dim))
-        return nn.Sequential(*layers)
+        if obs_dim is not None and action_dim is not None:
+            input_size = obs_dim + action_dim
+        return custom_mlp(input_size=input_size, action_dim=action_dim, hidden_sizes=hidden_sizes)
+
 
 
     def select_action(self, qf, observ, deterministic):
